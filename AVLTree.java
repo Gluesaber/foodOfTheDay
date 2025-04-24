@@ -1,4 +1,3 @@
-//67070501047 Harit
 import java.util.Scanner;
 
 class Node{
