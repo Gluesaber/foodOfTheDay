@@ -1,140 +1,130 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-class Node{
-    int key,height;
-    Node left;
-    Node right;
-    Node(int value){
-        key = value;
-        height = 1;
+class TNode{
+    int height;
+    FoodItem food;
+    TNode left;
+    TNode right;
+    TNode(FoodItem value){
+        this.food = value;
+        this.height = 1;
     }
 }
 
 public class AVLTree{
-    Node root;
+    TNode root;
 
-    Node rightRotate(Node oldRoot){
-        Node newRoot = oldRoot.left;
-
-        Node T2 = newRoot.right;
-
+    private TNode rightRotate(TNode oldRoot){
+        TNode newRoot = oldRoot.left;
+        TNode T2 = newRoot.right;
         newRoot.right = oldRoot;
         oldRoot.left = T2;
-
         oldRoot.height = max(height(oldRoot.left), height(oldRoot.right)) + 1;
         newRoot.height = max(height(newRoot.left), height(newRoot.right)) + 1;
-
         return newRoot;
     }
 
-    Node leftRotate(Node oldRoot){
-        Node newRoot = oldRoot.right;
-
-        Node T2 = newRoot.left;
-
+    private TNode leftRotate(TNode oldRoot){
+        TNode newRoot = oldRoot.right;
+        TNode T2 = newRoot.left;
         newRoot.left = oldRoot;
         oldRoot.right = T2;
-
         oldRoot.height = max(height(oldRoot.left), height(oldRoot.right)) + 1;
         newRoot.height = max(height(newRoot.left), height(newRoot.right)) + 1;
-
         return newRoot;
     }
 
-    int height(Node node){
+    private int height(TNode node){
         if(node == null){
             return 0;
         }
-        return  node.height;
+        return node.height;
     }
 
-    int max(int a, int b){
+    private int max(int a, int b){
         return Math.max(a, b);
     }
 
-    int balanceFactor(Node node){
+    private int balanceFactor(TNode node){
         if(node == null){
             return 0;
         }
-        return  height(node.left) - height(node.right);
+        return height(node.left) - height(node.right);
     }
 
-    Node insert(Node node, int key){
+    private TNode insert(TNode node, FoodItem item){
         if(node == null){
-            return new Node(key);
+            return new TNode(item);
+        }
+        
+        if(item.price < node.food.price){
+            node.left = insert(node.left, item);
+        }else if(item.price > node.food.price){
+            node.right = insert(node.right, item);
+        }else{
+            if(item.name.compareTo(node.food.name) < 0){
+                node.left = insert(node.left, item);
+            }else{
+                node.right = insert(node.right, item);
+            }
         }
 
-        if(key < node.key){
-            node.left = insert(node.left, key);
-        } else if(key > node.key){
-            node.right = insert(node.right, key);
-        } else{
-            return node;
-        }
-
-        node.height = 1+max(height(node.left), height(node.right));
-
-        int balanceFactor = balanceFactor(node);
-
-        if(balanceFactor > 1 && key < node.left.key){
-            return rightRotate(node);
-        }
-        if(balanceFactor < -1 && key > node.right.key){
-            return  leftRotate(node);
-        }
-        if(balanceFactor > 1 && key > node.left.key){
+        node.height = 1 + max(height(node.left), height(node.right));
+        int balance = balanceFactor(node);
+        if(balance > 1 && item.price < node.left.food.price) return rightRotate(node);
+        if(balance < -1 && item.price > node.right.food.price) return leftRotate(node);
+        if(balance > 1 && item.price > node.left.food.price){
             node.left = leftRotate(node.left);
             return rightRotate(node);
         }
-        if(balanceFactor < -1 && key > node.right.key){
-            node.right = leftRotate(node.right);
+        if(balance < -1 && item.price < node.right.food.price){
+            node.right = rightRotate(node.right);
             return leftRotate(node);
         }
 
-        return  node;
+        return node;
     }
-    //*************Removable***********************
-    public void preOrder(Node root){
-        if(root != null){
-            System.out.printf("%d ", root.key);
-            preOrder(root.left);
-            preOrder(root.right);        
-        }
-    }
-    public void postOrder(Node root){
-        if(root != null){
-            postOrder(root.left);
-            postOrder(root.right);
-            System.out.printf("%d ", root.key);        
-        }
-    }
-    public void inOrder(Node root){
-        if(root != null){
-            inOrder(root.left);
-            System.out.printf("%d ", root.key);  
-            inOrder(root.right);
-        }
-    }
-    //*************Removable***********************
 
-    public static void main(String[] args) {
-        AVLTree tree = new AVLTree();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter number of nodes: ");
-        int n = sc.nextInt();
-        System.out.println("Enter elements");
-        for(int i=0;i<n;i++){
-            int input = sc.nextInt();
-            tree.root = tree.insert(tree.root, input);
+    void insert(FoodItem item){
+        root = insert(root, item);
+    }
+
+    public FoodItem getFood(Vertex restaurant, int min, int max, FoodItem required){
+        List<FoodItem> itemsInRange = new ArrayList<>();
+        Random r = new Random();
+        searchItemsInRange(restaurant.menu.root, min, max, itemsInRange, required);
+
+        if(itemsInRange.isEmpty()){
+            return null;
         }
-        sc.close();
-        System.out.println("Preorder: ");
-        tree.preOrder(tree.root);
-        System.out.println();
-        System.out.println("Inorder: ");
-        tree.inOrder(tree.root);
-        System.out.println();
-        System.out.println("Postorder: ");
-        tree.postOrder(tree.root);
+        return itemsInRange.get(r.nextInt(itemsInRange.size()));
+    }
+
+    private void searchItemsInRange(TNode node, int min, int max, List<FoodItem> itemsInRange, FoodItem required){
+        if(node == null) return;
+
+        if(node.food.price > min){
+            searchItemsInRange(node.left, min, max, itemsInRange, required);
+        }
+        if(node.food.price >= min && node.food.price <= max){
+            if(matchFood(node.food, required)){
+                itemsInRange.add(node.food);
+            }
+        }
+        if(node.food.price < max){
+            searchItemsInRange(node.right, min, max, itemsInRange, required);
+        }
+    }
+
+    private boolean matchFood(FoodItem f1, FoodItem f2){
+        if(!f2.cuisine.equals("0") && !(f1.cuisine.equals(f2.cuisine))) return false;
+        if((f2.isHalal == true) && (f1.isHalal != f2.isHalal)) return false;
+        if((f2.isHealthy == true) && (f1.isHealthy != f2.isHealthy)) return false;
+        if((f2.isSeafood == false) && (f1.isSeafood != f2.isSeafood)) return false;
+        if((f2.isVegan == true) && (f1.isVegan != f2.isVegan)) return false;
+
+        return true;
     }
 }
