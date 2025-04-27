@@ -1,0 +1,46 @@
+SushiWorld 4505 1001
+AvocadoToast 13 Western true true false true
+Cheeseburger 16 Western false false false false
+Lasagna 22 Western false false false false
+-1
+CaféCozy 4600 1000
+VegetableStir-Fry 14 Chinese true true false true
+Ramen 16 Japanese false false false false
+ChickenCurry 20 Indian true false false false
+-1
+VegetarianVibes 5000 1000
+Tacos 10 Western false false false true
+MargheritaPizza 20 Western false false false true
+RibeyeSteak 35 Western true false false false
+-1
+Ping 0 0
+-1
+PastaParadise 4300 1000
+Pasta 19 Western false false false true
+Steak 26 Western false false false false
+Sushi 30 Japanese false true true false
+-1
+BistroBliss 4800 1000
+FalafelPita 14 Middle false true true false
+SpinachRavioli 18 Western false true false false
+SushiRolls 28 Japanese false true true false
+-1
+Fin 0 0
+-1
+-1
+Ping CaféCozy 2
+Ping BistroBliss 1
+Ping VegetarianVibes 3
+Ping Fin 2
+PastaParadise BistroBliss 4
+PastaParadise SushiWorld 4
+PastaParadise Fin 6
+VegetarianVibes CaféCozy 5
+VegetarianVibes BistroBliss 2
+VegetarianVibes SushiWorld 2
+VegetarianVibes Fin 5
+CaféCozy BistroBliss 3
+CaféCozy Fin 4
+CaféCozy SushiWorld 1
+Fin SushiWorld 3
+-1

@@ -1,0 +1,16 @@
+name(Vertex) totalScore ratingCount
+name(Food) price cuisine isHalal isHealthy isSeafood isVegan
+name(Food) price cuisine isHalal isHealthy isSeafood isVegan
+...
+-1
+name(Vertex) totalScore ratingCount
+name(Food) price cuisine isHalal isHealthy isSeafood isVegan
+name(Food) price cuisine isHalal isHealthy isSeafood isVegan
+...
+-1
+-1
+source destination weight
+source destination weight
+source destination weight
+...
+-1
