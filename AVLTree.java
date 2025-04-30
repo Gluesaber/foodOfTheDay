@@ -2,16 +2,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Node{
+class Node {
     int height;
     FoodItem data;
     Node left;
     Node right;
+
+    // Position for drawing
+    int x;
+    int y;
+
     Node(FoodItem value){
         this.data = value;
         this.height = 1;
     }
 }
+
 
 public class AVLTree{
     Node root;
@@ -143,6 +149,32 @@ public class AVLTree{
             getItemsInRangeRecursive(node.right, min, max, itemsInRange);
         }
     }
+
+    private int currentX = 0;
+
+    public void calculateNodePositions(int panelWidth, int panelHeight) {
+        int depth = getTreeDepth(root);
+        int ySpacing = panelHeight / (depth + 1);
+        currentX = 0;
+        assignPositions(root, 0, ySpacing);
+    }
+
+    private void assignPositions(Node node, int depth, int ySpacing) {
+        if (node == null) return;
+
+        assignPositions(node.left, depth + 1, ySpacing);
+
+        node.x = currentX++;
+        node.y = depth;
+
+        assignPositions(node.right, depth + 1, ySpacing);
+    }
+
+    private int getTreeDepth(Node node) {
+        if (node == null) return 0;
+        return 1 + Math.max(getTreeDepth(node.left), getTreeDepth(node.right));
+    }
+
 
 
     public static void main(String[] args) {

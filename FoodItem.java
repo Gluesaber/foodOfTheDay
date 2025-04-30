@@ -21,6 +21,7 @@ public class FoodItem{
 
     @Override
     public String toString() {
-        return name + " (" + cuisine + ") - " + price + " THB";
+        return name + " (" + price + ")";
     }
+
 }
