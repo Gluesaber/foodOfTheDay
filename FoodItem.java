@@ -34,4 +34,14 @@ public class FoodItem implements Comparable<FoodItem> {
         return this.name.compareTo(other.name);
     }
 
+    public void setName(String name) { this.name = name; }
+    public void setPrice(int price) { this.price = price; }
+    public void setCuisine(String cuisine) { this.cuisine = cuisine; }
+    public void setSpicy(boolean isSpicy) { this.isSpicy = isSpicy; }
+    public void setHalal(boolean isHalal) { this.isHalal = isHalal; }
+    public void setHealthy(boolean isHealthy) { this.isHealthy = isHealthy; }
+    public void setSeafood(boolean isSeafood) { this.isSeafood = isSeafood; }
+    public void setVegan(boolean isVegan) { this.isVegan = isVegan; }
+
+
 }

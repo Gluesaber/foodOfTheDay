@@ -1,17 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.*;
 
+
 public class TreePanel extends JPanel {
     private Node root;
-    private final int NODE_RADIUS = 20;
-    private final int FONT_SIZE = 10;
+    private final int NODE_RADIUS = 40; // Adjust as needed
+    private final int FONT_SIZE = 20;
     private HashMap<Node, Point> nodePositions;
     private MainAVL mainWindow;
 
-    // Animation
     private Node animatingNode = null;
     private Point animationStart;
     private Point animationEnd;
@@ -20,10 +21,21 @@ public class TreePanel extends JPanel {
     private LinkedList<Node> pathToNode;
     private int currentStep = 0;
 
+    private Image menuImage;
+
     public TreePanel(Node root, MainAVL mainWindow) {
         this.root = root;
         this.mainWindow = mainWindow;
         setBackground(Color.BLACK);
+        setPreferredSize(new Dimension(800, 600)); // Make sure the panel has a visible size
+
+        // Load the image from resources
+        try {
+            menuImage = new ImageIcon("menu2.png").getImage();
+            System.out.println("Image loaded successfully.");
+        } catch (Exception e) {
+            System.err.println("Failed to load image: " + e.getMessage());
+        }
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -41,16 +53,14 @@ public class TreePanel extends JPanel {
         animationStart = new Point(clickX, clickY);
         animationProgress = 0f;
         currentStep = 0;
-    
-        // Only calculate path here, but don't insert yet
+
         root = mainWindow.tree.root;
         calculateNodePositions();
-    
-        pathToNode = getPathToNode(root, item); // Get path from root to new node
-    
+        pathToNode = getPathToNode(root, item);
+
         if (!pathToNode.isEmpty()) {
             animationEnd = nodePositions.get(pathToNode.get(0));
-            startAnimationStep(); // Begin animation
+            startAnimationStep();
         }
     }
 
@@ -75,7 +85,6 @@ public class TreePanel extends JPanel {
             Point currentTarget = nodePositions.get(pathToNode.get(currentStep));
             if (currentTarget == null) return;
 
-            // Interpolate to next node
             animationProgress += 0.03f;
             if (animationProgress >= 1f) {
                 animationProgress = 0f;
@@ -95,12 +104,11 @@ public class TreePanel extends JPanel {
     }
 
     private void insertNodeAfterAnimation() {
-        // Insert the node after animation is complete
         mainWindow.tree.insert(animatingNode.data);
-        root = mainWindow.tree.root; // Update the root after insertion
-        mainWindow.treePanel.setRoot(root); // Refresh the panel
-        mainWindow.updateMenuDisplay(); // Update the menu display with the new tree structure
-        animatingNode = null; // Reset the animating node
+        root = mainWindow.tree.root;
+        mainWindow.treePanel.setRoot(root);
+        mainWindow.updateMenuDisplay();
+        animatingNode = null;
     }
 
     private void openAddMenu(int x, int y) {
@@ -157,7 +165,7 @@ public class TreePanel extends JPanel {
 
         if (node.right != null) {
             Point rightP = nodePositions.get(node.right);
-            g.setColor(Color.BLUE);
+            g.setColor(Color.GREEN);
             g.drawLine(p.x, p.y, rightP.x, rightP.y);
             drawTree(g, node.right);
         }
@@ -166,15 +174,21 @@ public class TreePanel extends JPanel {
     }
 
     private void drawNode(Graphics g, Node node, int x, int y) {
-        g.setColor(Color.DARK_GRAY);
-        g.fillOval(x - NODE_RADIUS, y - NODE_RADIUS, NODE_RADIUS * 2, NODE_RADIUS * 2);
+        if (menuImage != null) {
+            int size = NODE_RADIUS * 2;
+            BufferedImage scaledImage = getScaledImage(menuImage, size, size);
+        g.drawImage(scaledImage, x - NODE_RADIUS, y - NODE_RADIUS, null);
+
+        } else {
+            g.setColor(Color.GRAY);
+            g.fillOval(x - NODE_RADIUS, y - NODE_RADIUS, NODE_RADIUS * 2, NODE_RADIUS * 2);
+        }
 
         String text = node.data.toString();
+        g.setColor(Color.RED);
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(text);
         int textHeight = fm.getAscent();
-
-        g.setColor(Color.RED);
         g.drawString(text, x - textWidth / 2, y + textHeight / 4);
     }
 
@@ -204,10 +218,81 @@ public class TreePanel extends JPanel {
             JMenuItem deleteItem = new JMenuItem("Delete Node");
             deleteItem.addActionListener(e -> mainWindow.deleteFoodItem(clickedNode.data));
             popupMenu.add(deleteItem);
+
+            JMenuItem editItem = new JMenuItem("Edit Node");
+            editItem.addActionListener(e -> openEditMenu(clickedNode));
+            popupMenu.add(editItem);
         }
 
         popupMenu.show(this, x, y);
     }
+
+    private void openEditMenu(Node node) {
+        JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Edit Food Item", true);
+        dialog.setSize(300, 400);
+        dialog.setLayout(new GridLayout(9, 2, 5, 5));
+        dialog.setLocationRelativeTo(this);
+    
+        FoodItem item = node.data;
+    
+        JTextField nameField = new JTextField(item.name);
+        JTextField priceField = new JTextField(String.valueOf(item.price));
+        JTextField cuisineField = new JTextField(item.cuisine);
+        JCheckBox spicyBox = new JCheckBox("Spicy", item.isSpicy);
+        JCheckBox halalBox = new JCheckBox("Halal", item.isHalal);
+        JCheckBox healthyBox = new JCheckBox("Healthy", item.isHealthy);
+        JCheckBox seafoodBox = new JCheckBox("Seafood", item.isSeafood);
+        JCheckBox veganBox = new JCheckBox("Vegan", item.isVegan);
+    
+        dialog.add(new JLabel("Name:"));
+        dialog.add(nameField);
+        dialog.add(new JLabel("Price:"));
+        dialog.add(priceField);
+        dialog.add(new JLabel("Cuisine:"));
+        dialog.add(cuisineField);
+        dialog.add(spicyBox);
+        dialog.add(halalBox);
+        dialog.add(healthyBox);
+        dialog.add(seafoodBox);
+        dialog.add(veganBox);
+    
+        JButton saveButton = new JButton("Save Changes");
+        saveButton.addActionListener(e -> {
+            try {
+                // Get updated values from input
+                String name = nameField.getText();
+                int price = Integer.parseInt(priceField.getText());
+                String cuisine = cuisineField.getText();
+                boolean isSpicy = spicyBox.isSelected();
+                boolean isHalal = halalBox.isSelected();
+                boolean isHealthy = healthyBox.isSelected();
+                boolean isSeafood = seafoodBox.isSelected();
+                boolean isVegan = veganBox.isSelected();
+        
+                // Create a new FoodItem with updated data
+                FoodItem updatedItem = new FoodItem(name, price, cuisine, isSpicy, isHalal, isHealthy, isSeafood, isVegan);
+        
+                // Replace the old item in the AVL tree
+                mainWindow.tree.delete(node.data);   // Remove old node
+                mainWindow.tree.insert(updatedItem); // Insert updated node
+        
+                // Update tree display
+                root = mainWindow.tree.root;
+                mainWindow.treePanel.setRoot(root);
+                mainWindow.updateMenuDisplay(); // If you have a menu list or panel that shows food items
+                repaint();                      // Redraw tree
+                dialog.dispose();              // Close dialog
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(dialog, "Price must be an integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+    
+        dialog.add(saveButton);
+        dialog.setVisible(true);
+    }
+    
+
 
     private Node getNodeAt(int x, int y) {
         if (nodePositions == null) return null;
@@ -229,5 +314,14 @@ public class TreePanel extends JPanel {
         int[] currentX = {1};
         nodePositions = new HashMap<>();
         computeNodePositions(root, 0, getWidth() / (countNodes(root) + 1), ySpacing, currentX);
+    }
+
+    private BufferedImage getScaledImage(Image srcImg, int w, int h) {
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+        return resizedImg;
     }
 }

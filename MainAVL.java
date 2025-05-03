@@ -57,5 +57,6 @@ public class MainAVL extends JFrame {
             MainAVL app = new MainAVL();
             app.setVisible(true);
         });
+        
     }
 }
