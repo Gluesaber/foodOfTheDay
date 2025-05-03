@@ -2,21 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 public class AddMenu extends JFrame {
     private JTextField nameField, priceField, cuisineField;
     private JCheckBox spicyBox, halalBox, healthyBox, seafoodBox, veganBox;
-    private MainAVL mainWindow;  // Change to MainAVL
+    private MainAVL mainWindow;  // Reference to MainAVL
+    private Consumer<FoodItem> onSubmit;  // This will hold the animation callback
 
-    // Update constructor to expect MainAVL, not MainWindow
-    public AddMenu(MainAVL mainWindow) {
+    // Updated constructor with the animation callback
+    public AddMenu(MainAVL mainWindow, Consumer<FoodItem> onSubmit) {
         this.mainWindow = mainWindow;
+        this.onSubmit = onSubmit;
 
         setTitle("Add New Food Item");
         setSize(300, 400);
         setLayout(new GridLayout(9, 2, 5, 5));
         setLocationRelativeTo(mainWindow); // Center on Main Window
 
+        // Initialize UI components
         nameField = new JTextField();
         priceField = new JTextField();
         cuisineField = new JTextField();
@@ -26,6 +30,7 @@ public class AddMenu extends JFrame {
         seafoodBox = new JCheckBox("Seafood");
         veganBox = new JCheckBox("Vegan");
 
+        // Add components to the frame
         add(new JLabel("Name:"));
         add(nameField);
         add(new JLabel("Price:"));
@@ -41,6 +46,7 @@ public class AddMenu extends JFrame {
         JButton submitButton = new JButton("Add Item");
         add(submitButton);
 
+        // Set up the submit button action listener
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,9 +69,13 @@ public class AddMenu extends JFrame {
             boolean isVegan = veganBox.isSelected();
 
             FoodItem item = new FoodItem(name, price, cuisine, isSpicy, isHalal, isHealthy, isSeafood, isVegan);
-            mainWindow.addFoodItem(item);
 
-            dispose();  // Close the popup
+            // Trigger the animation callback (instead of directly adding it to mainWindow)
+            if (onSubmit != null) {
+                onSubmit.accept(item); // This calls the animation method in TreePanel
+            }
+
+            dispose();  // Close the popup window after submitting
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Price must be an integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }

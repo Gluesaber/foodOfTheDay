@@ -1,12 +1,10 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class MainAVL extends JFrame {
-    private AVLTree tree;
+    public AVLTree tree;
     private JTextArea outputArea;
-    private TreePanel treePanel;
+    public TreePanel treePanel;
 
     public MainAVL() {
         tree = new AVLTree();
@@ -22,7 +20,7 @@ public class MainAVL extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        treePanel = new TreePanel(tree.root);
+        treePanel = new TreePanel(tree.root, this);
         add(treePanel, BorderLayout.CENTER);
 
         outputArea = new JTextArea();
@@ -31,26 +29,10 @@ public class MainAVL extends JFrame {
         scrollPane.setPreferredSize(new Dimension(250, getHeight()));
         add(scrollPane, BorderLayout.EAST);
 
-        JButton addButton = new JButton("Add Food Item");
-        add(addButton, BorderLayout.SOUTH);
-
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddMenu(MainAVL.this);
-            }
-        });
-
         updateMenuDisplay();
     }
 
-    public void addFoodItem(FoodItem item) {
-        tree.insert(item);
-        treePanel.setRoot(tree.root);
-        updateMenuDisplay();
-    }
-
-    private void updateMenuDisplay() {
+    public void updateMenuDisplay() {
         outputArea.setText("");
         captureInOrder(tree.root);
         repaint();
@@ -62,6 +44,12 @@ public class MainAVL extends JFrame {
             outputArea.append(node.data.toString() + "\n");
             captureInOrder(node.right);
         }
+    }
+
+    public void deleteFoodItem(FoodItem item) {
+        tree.delete(item);  // Ensure AVL tree delete logic is implemented
+        treePanel.setRoot(tree.root);  // Refresh panel
+        updateMenuDisplay();
     }
 
     public static void main(String[] args) {

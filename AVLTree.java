@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 class Node {
     int height;
@@ -18,43 +17,31 @@ class Node {
     }
 }
 
-
-public class AVLTree{
+public class AVLTree {
     Node root;
 
     Node rightRotate(Node oldRoot){
         Node newRoot = oldRoot.left;
-
         Node T2 = newRoot.right;
-
         newRoot.right = oldRoot;
         oldRoot.left = T2;
-
         oldRoot.height = max(height(oldRoot.left), height(oldRoot.right)) + 1;
         newRoot.height = max(height(newRoot.left), height(newRoot.right)) + 1;
-
         return newRoot;
     }
 
     Node leftRotate(Node oldRoot){
         Node newRoot = oldRoot.right;
-
         Node T2 = newRoot.left;
-
         newRoot.left = oldRoot;
         oldRoot.right = T2;
-
         oldRoot.height = max(height(oldRoot.left), height(oldRoot.right)) + 1;
         newRoot.height = max(height(newRoot.left), height(newRoot.right)) + 1;
-
         return newRoot;
     }
 
     int height(Node node){
-        if(node == null){
-            return 0;
-        }
-        return  node.height;
+        return (node == null) ? 0 : node.height;
     }
 
     int max(int a, int b){
@@ -62,10 +49,7 @@ public class AVLTree{
     }
 
     int balanceFactor(Node node){
-        if(node == null){
-            return 0;
-        }
-        return  height(node.left) - height(node.right);
+        return (node == null) ? 0 : height(node.left) - height(node.right);
     }
 
     Node insert(Node node, FoodItem item){
@@ -85,32 +69,76 @@ public class AVLTree{
             }
         }
 
-        node.height = 1+max(height(node.left), height(node.right));
+        node.height = 1 + max(height(node.left), height(node.right));
+        return balance(node);
+    }
 
+    void insert(FoodItem item) {
+        root = insert(root, item);
+    }
+
+    Node delete(Node node, FoodItem item) {
+        if (node == null) return null;
+
+        if (item.price < node.data.price) {
+            node.left = delete(node.left, item);
+        } else if (item.price > node.data.price) {
+            node.right = delete(node.right, item);
+        } else {
+            if (!item.name.equals(node.data.name)) {
+                if (item.name.compareTo(node.data.name) < 0) {
+                    node.left = delete(node.left, item);
+                } else {
+                    node.right = delete(node.right, item);
+                }
+            } else {
+                if (node.left == null || node.right == null) {
+                    node = (node.left != null) ? node.left : node.right;
+                } else {
+                    Node successor = getMinValueNode(node.right);
+                    node.data = successor.data;
+                    node.right = delete(node.right, successor.data);
+                }
+            }
+        }
+
+        if (node == null) return null;
+
+        node.height = 1 + max(height(node.left), height(node.right));
+        return balance(node);
+    }
+
+    void delete(FoodItem item) {
+        root = delete(root, item);
+    }
+
+    private Node getMinValueNode(Node node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    Node balance(Node node) {
         int balance = balanceFactor(node);
 
-        // Balancing cases
-        if (balance > 1 && item.price < node.left.data.price)
+        if (balance > 1 && balanceFactor(node.left) >= 0)
             return rightRotate(node);
 
-        if (balance < -1 && item.price > node.right.data.price)
-            return leftRotate(node);
-
-        if (balance > 1 && item.price > node.left.data.price) {
+        if (balance > 1 && balanceFactor(node.left) < 0) {
             node.left = leftRotate(node.left);
             return rightRotate(node);
         }
 
-        if (balance < -1 && item.price < node.right.data.price) {
+        if (balance < -1 && balanceFactor(node.right) <= 0)
+            return leftRotate(node);
+
+        if (balance < -1 && balanceFactor(node.right) > 0) {
             node.right = rightRotate(node.right);
             return leftRotate(node);
         }
 
-        return  node;
-    }
-    
-     void insert(FoodItem item) {
-        root = insert(root, item);
+        return node;
     }
 
     void inOrder(Node node) {
@@ -134,17 +162,14 @@ public class AVLTree{
     private void getItemsInRangeRecursive(Node node, int min, int max, List<FoodItem> itemsInRange) {
         if (node == null) return;
 
-        // Search the left subtree if the current node's price is greater than min
         if (min < node.data.price) {
             getItemsInRangeRecursive(node.left, min, max, itemsInRange);
         }
 
-        // Check if the current node's price is within the range
         if (node.data.price >= min && node.data.price <= max) {
             itemsInRange.add(node.data);
         }
 
-        // Search the right subtree if the current node's price is less than max
         if (max > node.data.price) {
             getItemsInRangeRecursive(node.right, min, max, itemsInRange);
         }
@@ -174,33 +199,4 @@ public class AVLTree{
         if (node == null) return 0;
         return 1 + Math.max(getTreeDepth(node.left), getTreeDepth(node.right));
     }
-
-
-
-    public static void main(String[] args) {
-        AVLTree tree = new AVLTree();
-
-        tree.insert(new FoodItem("Pad Thai", 45, "Thai", false, true, true, false, false));
-        tree.insert(new FoodItem("Spaghetti", 80, "Western", false, false, false, false, false));
-        tree.insert(new FoodItem("Green Curry", 60, "Thai", true, true, true, false, false));
-        tree.insert(new FoodItem("Tofu Salad", 45, "IDK", false, true, true, false, true));
-
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter min price: ");
-        int min = sc.nextInt();
-        System.out.print("Enter max price: ");
-        int max = sc.nextInt();
-
-        System.out.println("\nMenu (sorted by price, then name):");
-        tree.displayInOrder();
-
-        List<FoodItem> itemsInRange = tree.getItemsInRange(tree.root, min, max);
-        System.out.println("\nMenu within price range (" + min + " - " + max + "):");
-        for (FoodItem item : itemsInRange) {
-            System.out.println(item);  // This will call your overridden toString()
-        }
-
-        sc.close();
-    }
-    
-}
+} 
