@@ -1,0 +1,259 @@
+SiLueangYellow 400 98
+GarlicBread 35 Western true false false true
+ThaiOmelette 40 Thai false false false false
+FrenchFries 50 Western true false false true
+CaesarSalad 75 Western true true false false
+SpaghettiTomYum 90 Thai true false false false
+TomYumSpaghetti 95 Thai true false true false
+HamSteak 105 Western false false false false
+GrilledChickenSteak 110 Western true false false false
+PorkChop 120 Western false false false false
+bbqRibs 150 Western false false false false
+-1
+TungTungTungSahur 500 100
+VeggieSpringRolls 40 Chinese true true false true
+MushroomSoup 50 Western true true false true
+VeganKhaoPad 53 Thai true true false true
+GrilledEggplant 55 Western true true false true
+StirFriedBroccoli 60 Chinese true true false true
+ChickpeaSalad 65 Western true true false true
+PaneerlessTikka 70 Indian true true false true
+TofuGreenCurry 72 Thai true true false true
+AvocadoSushi 75 Japanese true true false true
+VeganRamen 80 Japanese true true false true
+-1
+Matamgunmai 406 90
+StickyRice 10 Thai true false false true
+SomtamThai 40 Thai true true false false
+SomtamTua 42 Thai true true false false
+LaabChicken 45 Thai true true false false
+SomtamKaiKem 50 Thai true true false false
+GrilledChickenThigh 54 Thai true false false false
+LaabPork 55 Thai true true false false
+GrilledPorkNeck 56 Thai true false false false
+SomtamPuPlaRa 60 Thai false true false false
+NamTokMoo 65 Thai true true false false
+-1
+Finyakginpizza 1210 242
+FinLovePizza 180 Western true false false false
+PineapplePizza 190 Western true false false true
+HalalBaconPizza 200 Western true false false false
+FourCheesePizza 210 Western true false false false
+KetchopChickenPizza 215 Western true false false false
+TrufflePizza 230 Western true false false true
+SeafoodPizza 360 Western true false true false
+SalmonPizza 800 Western false false true false
+BluefinTunaPizza 1000 Western true true true false
+LobsterPizza 1200 Western true false false false
+-1
+RotiMaiJaNaiJa 476 95
+DalTadka 55 Indian true true false true
+AlooGobi 60 Indian true true false true
+ChanaMasala 70 Indian true true false true
+VegetableKorma 80 Indian true true false true
+PalakPaneer 85 Indian true true false true
+ChickenBiryani 90 Indian true false false false
+PaneerTikka 95 Indian true true false true
+ButterChicken 100 Indian true false false false
+RoganJosh 105 Indian false false false false
+TandooriChicken 110 Indian true true false false
+-1
+PoohSama 392 91
+EggDropSoup 40 Chinese true true false false
+StirFriedBokChoy 45 Chinese true true false true
+SteamedDumplings 55 Chinese false false false false
+VegetableLoMein 60 Chinese true true false true
+ChowMein 65 Chinese false false false false
+FriedRiceWithShrimp 70 Chinese true false true false
+MapoTofu 72 Chinese false true false false
+SweetAndSourChicken 75 Chinese true false false false
+SesameChicken 80 Chinese false false false false
+BeefNoodleSoup 85 Chinese false false false false
+-1
+Nevermore 729 162
+MargheritaPizza 400 Western true false false true
+LasagnaBolognese 450 Western false false false false
+GnocchiPesto 500 Western true false false true
+ProsciuttoPizza 580 Western false false false false
+TruffleCarbonara 650 Western false false false false
+YakinikuBeefBowl 700 Japanese true false false false
+SpaghettiVongole 740 Western true false true false
+UnagiDon 850 Japanese true false true false
+OssoBuco 980 Western false false false false
+-1
+SteakLungYig 464 95
+GardenSalad 100 Western true true false true
+MushroomSoup 130 Western true true false true
+VeggieBurger 160 Western true true false true
+ChickenCaesar 180 Western true true false false
+GrilledChicken 190 Western true true false false
+BBQChicken 200 Western true false false false
+BeefBurger 220 Western true false false false
+SeafoodSpaghetti 250 Western true false true false
+GrilledSalmon 350 Western true true true false
+RibeyeSteak 400 Western true false false false
+-1
+Fin 0 0
+-1
+Soodfea 390 85
+PadThaiWithShrimp 70 Thai true false true false
+FishCakes 90 Thai true false true false
+FriedFishWithMangoSalad 100 Thai true true true false
+OysterOmelette 120 Thai false false true false
+Stir-friedShrimpWithGarlic 140 Thai true false true false
+CrabFriedRice 150 Thai true false true false
+SteamedFish 150 Thai true true true false
+GrilledTigerPrawns 350 Thai true true true false
+Stir-friedCrabWithCurryPowder 400 Thai true false true false
+-1
+NamKlangBaan 480 96
+PadPakBung 100 Thai true true false true
+VegetableSoup 120 Thai true true false true
+ChickenSatay 130 Thai true false false false
+GreenCurryChicken 150 Thai true true false false
+StirFriedSquid 170 Thai true false true false
+FriedRiceCrab 180 Thai true false true false
+TomYumSeafood 200 Thai true false true false
+FriedCrabMeat 220 Thai true false true false
+SteamedSeaBass 250 Thai true true true false
+GrilledRiverPrawns 300 Thai true false true false
+-1
+OhayoNihaokub 404 89
+Tamagoyaki 40 Japanese true false false false
+Edamame 45 Japanese true true false true
+CaliforniaRoll 80 Japanese true true true false
+Tonkatsu 85 Japanese false false false false
+ChickenKatsuCurry 88 Japanese false false false false
+TempuraUdon 90 Japanese true false true false
+TeriyakiChicken 90 Japanese true false false false
+Ramen 95 Japanese false false false false
+SalmonSashimi 140 Japanese true true true false
+-1
+Haribo 763 191
+AbaloneWithBlackMushroom 8900 Chinese true false false false
+RoastedDuckWithCaviarSauce 9400 Chinese false false true false
+WhiteTrufflePasta 9800 Western true false false true
+LobsterAndFoieGrasBento 11000 Japanese false false true false
+24kGoldTomahawkSteak 12000 Western true false false false
+GoldenSeaUrchinSashimi 12300 Japanese true false true false
+BirdNestWithGoldLeaf 13500 Chinese true true false false
+BluefinOtoroPlatter 14500 Japanese true false true false
+MatsusakaBeefSukiyaki 17000 Japanese true false false false
+ImperialBelugaCaviar 20000 Western false false true false
+-1
+ThaiJungWa 323 70
+FriedTofu 30 Thai true true false true
+StirFriedMorningGlory 35 Thai true true false true
+KhaoPad 40 Thai false false false false
+MooPadKrapow 42 Thai false false false false
+PadThai 45 Thai true false false false
+GreenCurryChicken 50 Thai true false false false
+Somtam 50 Thai true true false true
+MassamanCurry 55 Thai true false false false
+FriedFishWithGarlic 75 Thai true false true false
+TomYumGoong 85 Thai true true true false
+-1
+Mai 0 0
+-1
+KruaNongTae 410 90
+FriedTofu 30 Thai true true false true
+KhaoPad 35 Thai false false false false
+MooPadKrapow 39 Thai false false false false
+PadThai 40 Thai true false false false
+GreenCurryChicken 45 Thai true false false false
+Somtam 48 Thai true true false true
+MassamanCurry 50 Thai true false false false
+FriedFish 70 Thai true false true false
+TomYumGoong 80 Thai true true true false
+Stir-friedMorningGlory 100 Thai true true false true
+-1
+LungJerry 420 88
+FriedChickenWithStickyRice 30 Thai false false false false
+BasilChicken 34 Thai false false false false
+GrilledPorkSkewers 35 Thai false false false false
+PadSeeEw 40 Thai true false false false
+KhaoSoi 42 Thai true false false false
+SpicyPorkSalad 44 Thai false true false false
+SatayChicken 45 Thai true false false false
+TonkatsuKare 50 Japanese false false false false
+SalmonGreenCurry 200 Thai true false true false
+Somtam 200 Thai true true false true
+-1
+Ping 0 0
+-1
+TralaleroTralala 493 100
+Bruschetta 95 Western true true false true
+MinestroneSoup 110 Western true true false true
+CapreseSalad 120 Western true true false true
+EggplantParmigiana 145 Western true false false true
+PestoPasta 150 Western true false false true
+SpaghettiCarbonara 160 Western false false false false
+FettuccineAlfredo 175 Western true false false false
+MargheritaPizza 180 Western true false false true
+Lasagna 190 Western false false false false
+SeafoodRisotto 220 Western true false true false
+-1
+Tae 0 0
+-1
+Jerry 0 0
+-1
+Scarabia 828 167
+Kaijiew 40 Thai false false false false
+KhaoTomMoo 55 Thai true true false false
+PadKapraoMoosab 60 Thai false false false false
+KhaoPadKung 65 Thai true false true false
+Palo 70 Thai true false false false
+GaengSom 75 Thai true true true false
+BanoffeePie 85 Western false false false false
+TomYumGoong 87 Thai true false true false
+Cheesecake 90 Western false false false true
+KhaoPadPoo 100 Thai true false true false
+SpaghettiCarbonara 120 Western false false false false
+-1
+BangSudLor 472 124
+PadKraPaoMoo 45 Thai false false false false
+DalCurry 50 Indian true true false true
+TomYumNoodles 55 Thai true false true false
+MixedVegetableCurry 60 Indian true true false true
+RedCurryChicken 60 Thai true false false false
+MasalaDosa 65 Indian true true false true
+BiryaniWithEgg 70 Indian true false false false
+PaneerMasala 85 Indian true true false true
+ChickenTikka 90 Indian true false false false
+ThaiGrilledFish 95 Thai true false true false
+-1
+-1
+Soodfea TungTungTungSahur 1
+Soodfea RotiMaiJaNaiJa 2
+Soodfea Haribo 12
+Haribo Fin 24
+NamKlangBaan Ping 1
+NamKlangBaan TralaleroTralala 1
+TralaleroTralala RotiMaiJaNaiJa 2
+TralaleroTralala Fin 7
+TralaleroTralala TungTungTungSahur 2
+TungTungTungSahur SteakLungYig 2
+TungTungTungSahur Mai 1
+ThaiJungWa BangSudLor 3
+KruaNongTae OhayoNihaokub 2
+KruaNongTae Tae 3
+KruaNongTae Finyakginpizza 1
+KruaNongTae BangSudLor 3
+SiLueangYellow Ping 3
+SiLueangYellow Tae 2
+SteakLungYig OhayoNihaokub 1
+SteakLungYig Fin 2
+Ping LungJerry 3
+Ping PoohSama 1
+Ping RotiMaiJaNaiJa 2
+Ping Jerry 2
+Ping Fin 1
+Jerry LungJerry 1
+Jerry Tae 4
+Finyakginpizza Tae 2
+Matamgunmai Fin 4
+Mai BangSudLor 2
+Fin Nevermore 1
+Fin Scarabia 7
+OhayoNihaokub BangSudLor 2
+-1
